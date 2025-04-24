@@ -53,9 +53,6 @@ method void Draw(
     GameObjectRef this,
     CFXArrayRendererRef renderer)
 {
-    CFXRect bounds = { this->Position.x, this->Position.y,
-        this->Size.x, this->Size.y };
-
     Draw(renderer, this->Sprite, this->Position, this->Size, this->Rotation, this->Color);
 }
 

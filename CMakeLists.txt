@@ -22,7 +22,6 @@ add_executable( ${APP_NAME}
     src/ParticleGenerator.c 
     ${SOURCE} )
 
-# include_directories( include )
 include_directories( external/stb )
 
 target_include_directories(${APP_NAME} PUBLIC /home/darko/Documents/GitHub/emsdk/upstream/emscripten/cache/sysroot/include/)

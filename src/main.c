@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include "../libs/corefx/corefx.h"
+#include "../libs/corefw/corefw.h"      // IWYU pragma: keep
 #include "Demo.h"
 
 int main(int argc, char *argv[])

@@ -31,7 +31,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: /tmp/tmpddb7x45_.js
+// include: /tmp/tmpwmknya71.js
 
   Module['expectedDataFileDownloads'] ??= 0;
   Module['expectedDataFileDownloads']++;
@@ -50,7 +50,7 @@ if (ENVIRONMENT_IS_NODE) {
         // web worker
         PACKAGE_PATH = encodeURIComponent(location.pathname.substring(0, location.pathname.lastIndexOf('/')) + '/');
       }
-      var PACKAGE_NAME = '/home/darko/Documents/GitHub/hello_owl/docs/index.data';
+      var PACKAGE_NAME = '/home/darko/Documents/GitHub/breakout-wasm/docs/index.data';
       var REMOTE_PACKAGE_BASE = 'index.data';
       var REMOTE_PACKAGE_NAME = Module['locateFile'] ? Module['locateFile'](REMOTE_PACKAGE_BASE, '') : REMOTE_PACKAGE_BASE;
 var REMOTE_PACKAGE_SIZE = metadata['remote_package_size'];
@@ -191,10 +191,10 @@ Module['FS_createPath']("/Resources", "textures", true, true);
           var files = metadata['files'];
           for (var i = 0; i < files.length; ++i) {
             DataRequest.prototype.requests[files[i].filename].onload();
-          }          Module['removeRunDependency']('datafile_/home/darko/Documents/GitHub/hello_owl/docs/index.data');
+          }          Module['removeRunDependency']('datafile_/home/darko/Documents/GitHub/breakout-wasm/docs/index.data');
 
       };
-      Module['addRunDependency']('datafile_/home/darko/Documents/GitHub/hello_owl/docs/index.data');
+      Module['addRunDependency']('datafile_/home/darko/Documents/GitHub/breakout-wasm/docs/index.data');
 
       Module['preloadResults'] ??= {};
 
@@ -218,7 +218,7 @@ Module['FS_createPath']("/Resources", "textures", true, true);
 
   })();
 
-// end include: /tmp/tmpddb7x45_.js
+// end include: /tmp/tmpwmknya71.js
 
 
 // Sometimes an existing Module object exists with properties

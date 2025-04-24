@@ -67,7 +67,7 @@ method void Clear(CFArrayRef this)
         this->size = 0;
 }
 
-method void* Get(CFArrayRef this, size_t i)
+method void* Get(CFArrayRef this, int i)
 {
         return CFArrayGet(this, i);
 }
@@ -77,7 +77,7 @@ method void Add(CFArrayRef this, void* item)
         CFArrayPush(this, item);
 }
 
-method void Put(CFArrayRef this, size_t index, void* object)
+method void Put(CFArrayRef this, int index, void* object)
 {
         CFArraySet(this, index, object);
 }

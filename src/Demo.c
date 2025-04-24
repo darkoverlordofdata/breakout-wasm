@@ -142,7 +142,7 @@ method void Draw(DemoRef this)
         // Draw background
         CFXRect bounds = { 0, 0, this->width, this->height };
         Draw(Renderer, GetTexture(ResourceManager, "background"), &bounds, 0.0f, WHITE);
-        GameLevelRef level = (GameLevelRef)CFArrayGet(this->Levels, this->Level);
+        GameLevelRef level = Get(this->Levels, this->Level);
         Draw(level, Renderer);
         Draw(Player, Renderer);
         Draw(Ball, Renderer);
@@ -165,16 +165,16 @@ method void Run(DemoRef this)
 method void ResetLevel(DemoRef this)
 {
     if (this->Level == 0) {
-        GameLevelRef level = CFArrayGet(this->Levels, 0);
+        GameLevelRef level = Get(this->Levels, 0);
         Load(level, "Resources/levels/one.lvl", this->width, this->height * 0.5f);
     } else if (this->Level == 1) {
-        GameLevelRef level = CFArrayGet(this->Levels, 1);
+        GameLevelRef level = Get(this->Levels, 1);
         Load(level, "Resources/levels/two.lvl", this->width, this->height * 0.5f);
     } else if (this->Level == 2) {
-        GameLevelRef level = CFArrayGet(this->Levels, 2);
+        GameLevelRef level = Get(this->Levels, 2);
         Load(level, "Resources/levels/three.lvl", this->width, this->height * 0.5f);
     } else if (this->Level == 3) {
-        GameLevelRef level = CFArrayGet(this->Levels, 3);
+        GameLevelRef level = Get(this->Levels, 3);
         Load(level, "Resources/levels/four.lvl", this->width, this->height * 0.5f);
     }
     this->Lives = 3;
@@ -276,11 +276,11 @@ static CollisionRef CheckCollision(
  */
 method void DoCollisions(DemoRef this)
 {
-    GameLevelRef level = CFArrayGet(this->Levels, this->Level);
+    GameLevelRef level = Get(this->Levels, this->Level);
     CFArrayRef bricks = level->Bricks;
 
     for (int i = 0; i < Length(bricks); i++) {
-        GameObjectRef box = (GameObjectRef)CFArrayGet(bricks, i);
+        GameObjectRef box = Get(bricks, i);
 
         if (!box->Destroyed) {
             CollisionRef collision = CheckCollision(this, Ball, box);
