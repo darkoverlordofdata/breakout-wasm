@@ -33,10 +33,33 @@ canvas {
     }
 } */
 
+@media (pointer: fine) {
+    #onscreen-controls {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    #onscreen-controls #dpad-container {
+        width: min(30vw,30vh);
+        height: min(30vw,30vh);
+        margin: 5%;
+    }
+
+    #onscreen-controls #button-container {
+        width: min(20vw,20vh);
+        height: min(20vw,20vh);
+        margin: 5%;
+        margin-left: auto;
+    }
+}
 /* Onscreen controls for "coarse" pointer devices assumed to be
    touchscreens on phones/tablets.  Inline SVG is used so that we can
    attach click handlers to individual elements of the controls. */
-@media (pointer: fine) {
+@media (pointer: coarse) {
     #onscreen-controls {
         position: absolute;
         width: 100%;
