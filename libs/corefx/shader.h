@@ -18,10 +18,22 @@ typedef struct __CFXShader {
     GLuint Id;
 } __CFXShader;
 
-extern method void* Ctor(CFXShaderRef this, CFStringRef vShader, CFStringRef fShader);
-extern method CFXShaderRef Use(CFXShaderRef this);
-extern method GLuint GetId(CFXShaderRef this);
-extern method void Compile(CFXShaderRef this, const GLchar* vertexSource, const GLchar* fragmentSource);
+extern method void* Ctor(
+    CFXShaderRef this, 
+    CFStringRef vShader, 
+    CFStringRef fShader);
+
+extern method CFXShaderRef Use(
+    CFXShaderRef this);
+
+extern method GLuint GetId(
+    CFXShaderRef this);
+
+extern method void Compile(
+    CFXShaderRef this, 
+    const GLchar* vertexSource, 
+    const GLchar* fragmentSource);
+    
 extern method void SetFloat(
     CFXShaderRef this,
     const GLchar* name,

@@ -60,17 +60,43 @@ typedef struct __CFXGame {
 } __CFXGame;
 
 
-extern method void* Ctor(CFXGameRef this, char* cstr, int width, int height, void* subclass, struct CFXGameVtbl* vptr);
-extern method void HandleEvents(CFXGameRef const this);
-extern method char* ToString(CFXGameRef this);
-extern method void Start(CFXGameRef const this);
-extern method void Tick(CFXGameRef const this);
-extern method void RunLoop(CFXGameRef const this);
-extern method void Run(CFXGameRef const this);
-extern method void Initialize(CFXGameRef const this);
-extern method void LoadContent(CFXGameRef const this);
-extern method void Update(CFXGameRef const this);
-extern method void Draw(CFXGameRef const this);
+extern method void* Ctor(
+    CFXGameRef this, 
+    char* cstr, 
+    int width, 
+    int height, 
+    void* subclass, 
+    struct CFXGameVtbl* vptr);
+
+extern method void HandleEvents(
+    CFXGameRef const this);
+
+extern method char* ToString(
+    CFXGameRef this);
+
+extern method void Start(
+    CFXGameRef const this);
+
+extern method void Tick(
+    CFXGameRef const this);
+
+extern method void RunLoop(
+    CFXGameRef const this);
+
+extern method void Run(
+    CFXGameRef const this);
+
+extern method void Initialize(
+    CFXGameRef const this);
+
+extern method void LoadContent(
+    CFXGameRef const this);
+
+extern method void Update(
+    CFXGameRef const this);
+
+extern method void Draw(
+    CFXGameRef const this);
 
 static inline CFXGameRef NewCFXGame(char* cstr, int width, int height, void* subclass, struct CFXGameVtbl* vptr)
 {

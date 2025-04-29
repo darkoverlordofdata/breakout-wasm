@@ -39,12 +39,29 @@ typedef struct __BallObject { // extend GameObject
     bool Stuck;
 } __BallObject;
 
+extern method void* Ctor(
+    BallObjectRef this, 
+    Vec2 Position, 
+    float Radius, 
+    Vec2 Velocity, 
+    CFXTexture2DRef Sprite);
 
-extern method void* Ctor(BallObjectRef this, Vec2 Position, float Radius, Vec2 Velocity, CFXTexture2DRef Sprite);
-extern method void Draw(BallObjectRef this, CFXArrayRendererRef renderer);
-extern method void Move(BallObjectRef this, GLfloat dt, GLuint window_width);
-extern method void Reset(BallObjectRef this, Vec2 position, Vec2 velocity);
-extern method char* ToString(BallObjectRef  this);
+extern method void Draw(
+    BallObjectRef this, 
+    CFXArrayRendererRef renderer);
+
+extern method void Move(
+    BallObjectRef this, 
+    GLfloat dt, 
+    GLuint window_width);
+
+extern method void Reset(
+    BallObjectRef this, 
+    Vec2 position, 
+    Vec2 velocity);
+
+extern method char* ToString(
+    BallObjectRef  this);
 
 static inline BallObjectRef NewBallObject(Vec2 Position, float Radius, Vec2 Velocity, CFXTexture2DRef Sprite)
 {

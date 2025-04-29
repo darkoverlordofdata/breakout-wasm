@@ -22,9 +22,24 @@ typedef struct __CFXElementRenderer {
     GLuint EBO;
 } __CFXElementRenderer;
 
-extern method void* Ctor(CFXElementRendererRef this, CFXShaderRef shader);
-extern method void Draw(CFXElementRendererRef this, CFXTexture2DRef texture, CFXRect bounds, GLfloat rotate, Vec3 color);
-extern method void Draw(CFXElementRendererRef this, CFXTexture2DRef texture, Vec2 position, Vec2 size, GLfloat rotate, Vec3 color);
+extern method void* Ctor(
+    CFXElementRendererRef this, 
+    CFXShaderRef shader);
+
+extern method void Draw(
+    CFXElementRendererRef this, 
+    CFXTexture2DRef texture, 
+    CFXRect bounds, 
+    GLfloat rotate, 
+    Vec3 color);
+
+extern method void Draw(
+    CFXElementRendererRef this, 
+    CFXTexture2DRef texture, 
+    Vec2 position, 
+    Vec2 size, 
+    GLfloat rotate, 
+    Vec3 color);
 
 static inline CFXElementRendererRef NewCFXElementRenderer(CFXShaderRef shader)
 {

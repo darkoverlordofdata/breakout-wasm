@@ -25,12 +25,33 @@ typedef struct __GameLevel {
     CFArrayRef Bricks;
 } __GameLevel;
 
-extern method GameLevelRef Ctor(GameLevelRef this, GLchar *file, int levelWidth, int levelHeight);
-extern method GameLevelRef Load(GameLevelRef this, GLchar *file, int levelWidth, int levelHeight);
-extern method void Draw(GameLevelRef this, CFXArrayRendererRef renderer);
-extern method bool IsCompleted(GameLevelRef this);
-extern method void init(GameLevelRef this, CFArrayRef tileData, int levelWidth, int levelHeight);
-extern method char* ToString(GameLevelRef this);
+extern method GameLevelRef Ctor(
+    GameLevelRef this, 
+    GLchar *file, 
+    int levelWidth, 
+    int levelHeight);
+
+extern method GameLevelRef Load(
+    GameLevelRef this, 
+    GLchar *file, 
+    int levelWidth, 
+    int levelHeight);
+
+extern method void Draw(
+    GameLevelRef this, 
+    CFXArrayRendererRef renderer);
+
+extern method bool IsCompleted(
+    GameLevelRef this);
+
+extern method void init(
+    GameLevelRef this, 
+    CFArrayRef tileData, 
+    int levelWidth, 
+    int levelHeight);
+
+extern method char* ToString(
+    GameLevelRef this);
 
 static inline GameLevelRef NewGameLevel(GLchar *file, int levelWidth, int levelHeight)
 {

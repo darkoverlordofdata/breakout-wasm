@@ -31,13 +31,36 @@ typedef struct __ParticleGenerator {
     GLuint VAO;
 } __ParticleGenerator;
 
-extern method void* Ctor(ParticleGeneratorRef this, CFXShaderRef shader, CFXTexture2DRef texture, int amount);
-extern method void Update(ParticleGeneratorRef this, GLfloat dt, GameObjectRef object, GLuint newParticles, Vec2 offset);
-extern method void Draw(ParticleGeneratorRef this);
-extern method void init(ParticleGeneratorRef this);
-extern method GLuint firstUnused(ParticleGeneratorRef this);
-extern method void respawn(ParticleGeneratorRef this, ParticleRef particle, GameObjectRef object, Vec2 offset);
-extern method char* ToString(ParticleGeneratorRef this);
+extern method void* Ctor(
+    ParticleGeneratorRef this, 
+    CFXShaderRef shader, 
+    CFXTexture2DRef texture, 
+    int amount);
+
+extern method void Update(
+    ParticleGeneratorRef this, 
+    GLfloat dt, 
+    GameObjectRef object, 
+    GLuint newParticles, 
+    Vec2 offset);
+
+extern method void Draw(
+    ParticleGeneratorRef this);
+
+extern method void init(
+    ParticleGeneratorRef this);
+
+extern method GLuint firstUnused(
+    ParticleGeneratorRef this);
+
+extern method void respawn(
+    ParticleGeneratorRef this, 
+    ParticleRef particle, 
+    GameObjectRef object, 
+    Vec2 offset);
+
+extern method char* ToString(
+    ParticleGeneratorRef this);
 
 static inline ParticleGeneratorRef NewParticleGenerator(CFXShaderRef shader, CFXTexture2DRef texture, int amount)
 {

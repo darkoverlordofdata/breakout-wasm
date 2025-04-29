@@ -23,7 +23,11 @@ typedef struct __CFXTexture2D {
     char* path;
 } __CFXTexture2D;
 
-extern method void* Ctor(CFXTexture2DRef this, GLuint internalFormat, GLuint imageFormat, char* path);
+extern method void* Ctor(
+    CFXTexture2DRef this, 
+    GLuint internalFormat, 
+    GLuint imageFormat, 
+    char* path);
 
 extern method void Generate(
     CFXTexture2DRef this,
@@ -31,9 +35,11 @@ extern method void Generate(
     GLuint height,
     unsigned char* data);
 
-extern method void Bind(const CFXTexture2DRef this);
+extern method void Bind(
+    const CFXTexture2DRef this);
 
-extern method char* ToString(const CFXTexture2DRef this);
+extern method char* ToString(
+    const CFXTexture2DRef this);
 
 static inline CFXTexture2DRef NewCFXTexture2D(GLuint internalFormat, GLuint imageFormat, char* path)
 {

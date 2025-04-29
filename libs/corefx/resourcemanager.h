@@ -17,7 +17,8 @@ typedef struct __CFXResourceManager {
     CFMapRef Fonts;
 } __CFXResourceManager;
 
-extern method void* Ctor(CFXResourceManagerRef this);
+extern method void* Ctor(
+    CFXResourceManagerRef this);
 
 extern method CFXShaderRef LoadShader(
     const CFXResourceManagerRef this,

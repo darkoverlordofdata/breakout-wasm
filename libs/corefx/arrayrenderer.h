@@ -21,9 +21,24 @@ typedef struct __CFXArrayRenderer {
     GLuint VAO;
 } __CFXArrayRenderer;
 
-extern method void* Ctor(CFXArrayRendererRef this, CFXShaderRef shader);
-extern method void Draw(CFXArrayRendererRef this, CFXTexture2DRef texture, CFXRect* bounds, GLfloat rotate, Vec3 color);
-extern method void Draw(CFXArrayRendererRef this, CFXTexture2DRef texture, Vec2 position, Vec2 size, GLfloat rotate, Vec3 color);
+extern method void* Ctor(
+    CFXArrayRendererRef this, 
+    CFXShaderRef shader);
+
+extern method void Draw(
+    CFXArrayRendererRef this, 
+    CFXTexture2DRef texture, 
+    CFXRect* bounds, 
+    GLfloat rotate, 
+    Vec3 color);
+
+extern method void Draw(
+    CFXArrayRendererRef this, 
+    CFXTexture2DRef texture, 
+    Vec2 position, 
+    Vec2 size, 
+    GLfloat rotate, 
+    Vec3 color);
 
 static inline CFXArrayRendererRef NewCFXArrayRenderer(CFXShaderRef shader)
 {

@@ -68,14 +68,26 @@ typedef struct __Demo {
 extern CFXResourceManagerRef ResourceManager;
 
 
-extern void* Ctor(DemoRef this, char* title, int width, int height);
+extern void* Ctor(
+    DemoRef this, 
+    char* title, 
+    int width, 
+    int height);
+
+extern method void SetKey(
+    DemoRef this, 
+    int key, 
+    bool value);
+
+extern method void SetState(
+    DemoRef this, 
+    GameState state);
+    
 extern method void Initialize(DemoRef this);
 extern method void LoadContent(DemoRef this);
 extern method void Update(DemoRef this);
 extern method void Draw(DemoRef this);
 extern method void Run(DemoRef this);
-extern method void SetKey(DemoRef this, int key, bool value);
-extern method void SetState(DemoRef this, GameState state);
 extern method void Start(DemoRef this);
 extern method void ResetLevel(DemoRef this);
 extern method void ResetPlayer(DemoRef this);
