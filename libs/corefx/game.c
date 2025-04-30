@@ -107,6 +107,31 @@ method void* Ctor(CFXGameRef this, char* cstr, int width, int height, void* subc
     glEnable(GL_CULL_FACE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    emscripten_set_click_callback("#dpad-up", this, EM_TRUE, onclick_handler_dpad_up);
+    emscripten_set_click_callback("#dpad-down", this, EM_TRUE, onclick_handler_dpad_down);
+    emscripten_set_click_callback("#dpad-left", this, EM_TRUE, onclick_handler_dpad_left);
+    emscripten_set_click_callback("#dpad-right", this, EM_TRUE, onclick_handler_dpad_right);
+    emscripten_set_click_callback("#button-a", this, EM_TRUE, onclick_handler_button_a);
+
+    emscripten_set_touchstart_callback("#dpad-up", this, EM_TRUE, touchstart_handler_dpad_up);
+    emscripten_set_touchstart_callback("#dpad-down", this, EM_TRUE, touchstart_handler_dpad_down);
+    emscripten_set_touchstart_callback("#dpad-left", this, EM_TRUE, touchstart_handler_dpad_left);
+    emscripten_set_touchstart_callback("#dpad-right", this, EM_TRUE, touchstart_handler_dpad_right);
+    emscripten_set_touchstart_callback("#buttn-a", this, EM_TRUE, touchstart_handler_button_a);
+
+    emscripten_set_touchend_callback("#dpad-up", this, EM_TRUE, touchend_handler_dpad_up);
+    emscripten_set_touchend_callback("#dpad-down", this, EM_TRUE, touchend_handler_dpad_down);
+    emscripten_set_touchend_callback("#dpad-left", this, EM_TRUE, touchend_handler_dpad_left);
+    emscripten_set_touchend_callback("#dpad-right", this, EM_TRUE, touchend_handler_dpad_right);
+    emscripten_set_touchend_callback("#buttn-a", this, EM_TRUE, touchend_handler_button_a);
+
+    emscripten_set_touchcancel_callback("#dpad-up", this, EM_TRUE, touchcancel_handler_dpad_up);
+    emscripten_set_touchcancel_callback("#dpad-down", this, EM_TRUE, touchcancel_handler_dpad_down);
+    emscripten_set_touchcancel_callback("#dpad-left", this, EM_TRUE, touchcancel_handler_dpad_left);
+    emscripten_set_touchcancel_callback("#dpad-right", this, EM_TRUE, touchcancel_handler_dpad_right);
+    emscripten_set_touchcancel_callback("#buttn-a", this, EM_TRUE, touchcancel_handler_button_a);
+
     return this;
 }
 
@@ -291,4 +316,164 @@ method void Initialize(CFXGameRef const this)
 method void Update(CFXGameRef const this)
 {
     this->override->Update(this->subclass);
+}
+
+
+EM_BOOL onclick_handler_dpad_up(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
+{
+    CFXGameRef this = userData;
+    this->keys[GLFW_KEY_UP] = true;
+    this->keys[GLFW_KEY_DOWN] = false;
+    return EM_TRUE;
+}
+
+EM_BOOL onclick_handler_dpad_down(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
+{
+    CFXGameRef this = userData;
+    this->keys[GLFW_KEY_UP] = false;
+    this->keys[GLFW_KEY_DOWN] = true;
+    return EM_TRUE;
+}
+
+EM_BOOL onclick_handler_dpad_left(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
+{
+    CFXGameRef this = userData;
+    this->keys[GLFW_KEY_LEFT] = true;
+    this->keys[GLFW_KEY_RIGHT] = false;
+    return EM_TRUE;
+}
+
+EM_BOOL onclick_handler_dpad_right(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
+{
+    CFXGameRef this = userData;
+    this->keys[GLFW_KEY_LEFT] = false;
+    this->keys[GLFW_KEY_RIGHT] = true;
+    return EM_TRUE;
+}
+
+EM_BOOL onclick_handler_button_a(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
+{
+    CFXGameRef this = userData;
+    this->keys[GLFW_KEY_A] = true;
+    return EM_TRUE;
+}
+
+
+EM_BOOL touchstart_handler_dpad_up(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+{
+    CFXGameRef this = userData;
+    this->keys[GLFW_KEY_UP] = true;
+    this->keys[GLFW_KEY_DOWN] = false;
+    return EM_TRUE;
+}
+
+EM_BOOL touchstart_handler_dpad_down(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+{
+    CFXGameRef this = userData;
+    this->keys[GLFW_KEY_UP] = false;
+    this->keys[GLFW_KEY_DOWN] = true;
+    return EM_TRUE;
+}
+
+EM_BOOL touchstart_handler_dpad_left(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+{
+    CFXGameRef this = userData;
+    this->keys[GLFW_KEY_LEFT] = true;
+    this->keys[GLFW_KEY_RIGHT] = false;
+    return EM_TRUE;
+}
+
+EM_BOOL touchstart_handler_dpad_right(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+{
+    CFXGameRef this = userData;
+    this->keys[GLFW_KEY_LEFT] = false;
+    this->keys[GLFW_KEY_RIGHT] = true;
+    return EM_TRUE;
+}
+
+EM_BOOL touchstart_handler_button_a(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+{
+    CFXGameRef this = userData;
+    this->keys[GLFW_KEY_A] = true;
+    return EM_TRUE;
+}
+
+
+EM_BOOL touchend_handler_dpad_up(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+{
+    CFXGameRef this = userData;
+    this->keys[GLFW_KEY_UP] = false;
+    this->keys[GLFW_KEY_DOWN] = false;
+    return EM_TRUE;
+}
+
+EM_BOOL touchend_handler_dpad_down(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+{
+    CFXGameRef this = userData;
+    this->keys[GLFW_KEY_UP] = false;
+    this->keys[GLFW_KEY_DOWN] = false;
+    return EM_TRUE;
+}
+
+EM_BOOL touchend_handler_dpad_left(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+{
+    CFXGameRef this = userData;
+    this->keys[GLFW_KEY_LEFT] = false;
+    this->keys[GLFW_KEY_RIGHT] = false;
+    return EM_TRUE;
+}
+
+EM_BOOL touchend_handler_dpad_right(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+{
+    CFXGameRef this = userData;
+    this->keys[GLFW_KEY_LEFT] = false;
+    this->keys[GLFW_KEY_RIGHT] = false;
+    return EM_TRUE;
+}
+
+EM_BOOL touchend_handler_button_a(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+{
+    CFXGameRef this = userData;
+    this->keys[GLFW_KEY_A] = false;
+    return EM_TRUE;
+}
+
+
+EM_BOOL touchcancel_handler_dpad_up(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+{
+    CFXGameRef this = userData;
+    this->keys[GLFW_KEY_UP] = false;
+    this->keys[GLFW_KEY_DOWN] = false;
+    return EM_TRUE;
+}
+
+EM_BOOL touchcancel_handler_dpad_down(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+{
+    CFXGameRef this = userData;
+    this->keys[GLFW_KEY_UP] = false;
+    this->keys[GLFW_KEY_DOWN] = false;
+    return EM_TRUE;
+}
+
+EM_BOOL touchcancel_handler_dpad_left(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+{
+    CFXGameRef this = userData;
+    this->keys[GLFW_KEY_LEFT] = false;
+    this->keys[GLFW_KEY_RIGHT] = false;
+    return EM_TRUE;
+}
+
+EM_BOOL touchcancel_handler_dpad_right(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+{
+    CFXGameRef this = userData;
+    this->keys[GLFW_KEY_LEFT] = false;
+    this->keys[GLFW_KEY_RIGHT] = false;
+    return EM_TRUE;
+}
+
+EM_BOOL touchcancel_handler_button_a(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+{
+    CFXGameRef this = userData;
+    this->keys[GLFW_KEY_A] = false;
+    return EM_TRUE;
 }
