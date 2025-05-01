@@ -354,7 +354,7 @@ EM_BOOL onclick_handler_dpad_right(int eventType, const EmscriptenMouseEvent *mo
 EM_BOOL onclick_handler_button_a(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
 {
     CFXGameRef this = userData;
-    this->keys[GLFW_KEY_A] = true;
+    this->keys[GLFW_KEY_SPACE] = true;
     return EM_TRUE;
 }
 
@@ -394,7 +394,7 @@ EM_BOOL touchstart_handler_dpad_right(int eventType, const EmscriptenTouchEvent 
 EM_BOOL touchstart_handler_button_a(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
 {
     CFXGameRef this = userData;
-    this->keys[GLFW_KEY_A] = true;
+    this->keys[GLFW_KEY_SPACE] = true;
     return EM_TRUE;
 }
 
@@ -434,7 +434,7 @@ EM_BOOL touchend_handler_dpad_right(int eventType, const EmscriptenTouchEvent *t
 EM_BOOL touchend_handler_button_a(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
 {
     CFXGameRef this = userData;
-    this->keys[GLFW_KEY_A] = false;
+    this->keys[GLFW_KEY_SPACE] = false;
     return EM_TRUE;
 }
 
@@ -474,6 +474,6 @@ EM_BOOL touchcancel_handler_dpad_right(int eventType, const EmscriptenTouchEvent
 EM_BOOL touchcancel_handler_button_a(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
 {
     CFXGameRef this = userData;
-    this->keys[GLFW_KEY_A] = false;
+    this->keys[GLFW_KEY_SPACE] = false;
     return EM_TRUE;
 }
