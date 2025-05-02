@@ -11,9 +11,9 @@ typedef void (*DemoProc)(DemoRef this);
 
 static const Vec2 PLAYER_SIZE = { 100, 20 };                        // Initial size of the player paddle
 // static const GLfloat PLAYER_VELOCITY = 500.0f;                      // Initial velocity of the player paddle
-static const GLfloat PLAYER_VELOCITY = 100.0f;                      // Initial velocity of the player paddle
+static const GLfloat PLAYER_VELOCITY = 200.0f;                      // Initial velocity of the player paddle
 // static const Vec2 INITIAL_BALL_VELOCITY = { 100.0f, -350.0f };      // Initial velocity of the Ball
-static const Vec2 INITIAL_BALL_VELOCITY = { 100.0f, -350.0f };      // Initial velocity of the Ball
+static const Vec2 INITIAL_BALL_VELOCITY = { 100.0f, -100.0f };      // Initial velocity of the Ball
 static const GLfloat BALL_RADIUS = 12.5f;                           // Radius of the ball object
 static const Vec2 ZERO = { 0, 0 };
 static const Vec3 WHITE = { 1, 1, 1 };

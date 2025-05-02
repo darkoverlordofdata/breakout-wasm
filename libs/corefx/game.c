@@ -319,7 +319,7 @@ method void Update(CFXGameRef const this)
 }
 
 
-EM_BOOL onclick_handler_dpad_up(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
+bool onclick_handler_dpad_up(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
 {
     CFXGameRef this = userData;
     this->keys[GLFW_KEY_UP] = true;
@@ -327,7 +327,7 @@ EM_BOOL onclick_handler_dpad_up(int eventType, const EmscriptenMouseEvent *mouse
     return EM_TRUE;
 }
 
-EM_BOOL onclick_handler_dpad_down(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
+bool onclick_handler_dpad_down(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
 {
     CFXGameRef this = userData;
     this->keys[GLFW_KEY_UP] = false;
@@ -335,7 +335,7 @@ EM_BOOL onclick_handler_dpad_down(int eventType, const EmscriptenMouseEvent *mou
     return EM_TRUE;
 }
 
-EM_BOOL onclick_handler_dpad_left(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
+bool onclick_handler_dpad_left(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
 {
     CFXGameRef this = userData;
     this->keys[GLFW_KEY_LEFT] = true;
@@ -343,7 +343,7 @@ EM_BOOL onclick_handler_dpad_left(int eventType, const EmscriptenMouseEvent *mou
     return EM_TRUE;
 }
 
-EM_BOOL onclick_handler_dpad_right(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
+bool onclick_handler_dpad_right(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
 {
     CFXGameRef this = userData;
     this->keys[GLFW_KEY_LEFT] = false;
@@ -351,7 +351,7 @@ EM_BOOL onclick_handler_dpad_right(int eventType, const EmscriptenMouseEvent *mo
     return EM_TRUE;
 }
 
-EM_BOOL onclick_handler_button_a(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
+bool onclick_handler_button_a(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
 {
     CFXGameRef this = userData;
     this->keys[GLFW_KEY_SPACE] = true;
@@ -359,7 +359,7 @@ EM_BOOL onclick_handler_button_a(int eventType, const EmscriptenMouseEvent *mous
 }
 
 
-EM_BOOL touchstart_handler_dpad_up(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+bool touchstart_handler_dpad_up(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
 {
     CFXGameRef this = userData;
     this->keys[GLFW_KEY_UP] = true;
@@ -367,7 +367,7 @@ EM_BOOL touchstart_handler_dpad_up(int eventType, const EmscriptenTouchEvent *to
     return EM_TRUE;
 }
 
-EM_BOOL touchstart_handler_dpad_down(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+bool touchstart_handler_dpad_down(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
 {
     CFXGameRef this = userData;
     this->keys[GLFW_KEY_UP] = false;
@@ -375,7 +375,7 @@ EM_BOOL touchstart_handler_dpad_down(int eventType, const EmscriptenTouchEvent *
     return EM_TRUE;
 }
 
-EM_BOOL touchstart_handler_dpad_left(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+bool touchstart_handler_dpad_left(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
 {
     CFXGameRef this = userData;
     this->keys[GLFW_KEY_LEFT] = true;
@@ -383,7 +383,7 @@ EM_BOOL touchstart_handler_dpad_left(int eventType, const EmscriptenTouchEvent *
     return EM_TRUE;
 }
 
-EM_BOOL touchstart_handler_dpad_right(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+bool touchstart_handler_dpad_right(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
 {
     CFXGameRef this = userData;
     this->keys[GLFW_KEY_LEFT] = false;
@@ -391,7 +391,7 @@ EM_BOOL touchstart_handler_dpad_right(int eventType, const EmscriptenTouchEvent 
     return EM_TRUE;
 }
 
-EM_BOOL touchstart_handler_button_a(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+bool touchstart_handler_button_a(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
 {
     CFXGameRef this = userData;
     this->keys[GLFW_KEY_SPACE] = true;
@@ -399,7 +399,7 @@ EM_BOOL touchstart_handler_button_a(int eventType, const EmscriptenTouchEvent *t
 }
 
 
-EM_BOOL touchend_handler_dpad_up(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+bool touchend_handler_dpad_up(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
 {
     CFXGameRef this = userData;
     this->keys[GLFW_KEY_UP] = false;
@@ -407,7 +407,7 @@ EM_BOOL touchend_handler_dpad_up(int eventType, const EmscriptenTouchEvent *touc
     return EM_TRUE;
 }
 
-EM_BOOL touchend_handler_dpad_down(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+bool touchend_handler_dpad_down(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
 {
     CFXGameRef this = userData;
     this->keys[GLFW_KEY_UP] = false;
@@ -415,7 +415,7 @@ EM_BOOL touchend_handler_dpad_down(int eventType, const EmscriptenTouchEvent *to
     return EM_TRUE;
 }
 
-EM_BOOL touchend_handler_dpad_left(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+bool touchend_handler_dpad_left(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
 {
     CFXGameRef this = userData;
     this->keys[GLFW_KEY_LEFT] = false;
@@ -423,7 +423,7 @@ EM_BOOL touchend_handler_dpad_left(int eventType, const EmscriptenTouchEvent *to
     return EM_TRUE;
 }
 
-EM_BOOL touchend_handler_dpad_right(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+bool touchend_handler_dpad_right(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
 {
     CFXGameRef this = userData;
     this->keys[GLFW_KEY_LEFT] = false;
@@ -431,7 +431,7 @@ EM_BOOL touchend_handler_dpad_right(int eventType, const EmscriptenTouchEvent *t
     return EM_TRUE;
 }
 
-EM_BOOL touchend_handler_button_a(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+bool touchend_handler_button_a(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
 {
     CFXGameRef this = userData;
     this->keys[GLFW_KEY_SPACE] = false;
@@ -439,7 +439,7 @@ EM_BOOL touchend_handler_button_a(int eventType, const EmscriptenTouchEvent *tou
 }
 
 
-EM_BOOL touchcancel_handler_dpad_up(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+bool touchcancel_handler_dpad_up(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
 {
     CFXGameRef this = userData;
     this->keys[GLFW_KEY_UP] = false;
@@ -447,7 +447,7 @@ EM_BOOL touchcancel_handler_dpad_up(int eventType, const EmscriptenTouchEvent *t
     return EM_TRUE;
 }
 
-EM_BOOL touchcancel_handler_dpad_down(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+bool touchcancel_handler_dpad_down(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
 {
     CFXGameRef this = userData;
     this->keys[GLFW_KEY_UP] = false;
@@ -455,7 +455,7 @@ EM_BOOL touchcancel_handler_dpad_down(int eventType, const EmscriptenTouchEvent 
     return EM_TRUE;
 }
 
-EM_BOOL touchcancel_handler_dpad_left(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+bool touchcancel_handler_dpad_left(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
 {
     CFXGameRef this = userData;
     this->keys[GLFW_KEY_LEFT] = false;
@@ -463,7 +463,7 @@ EM_BOOL touchcancel_handler_dpad_left(int eventType, const EmscriptenTouchEvent 
     return EM_TRUE;
 }
 
-EM_BOOL touchcancel_handler_dpad_right(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+bool touchcancel_handler_dpad_right(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
 {
     CFXGameRef this = userData;
     this->keys[GLFW_KEY_LEFT] = false;
@@ -471,7 +471,7 @@ EM_BOOL touchcancel_handler_dpad_right(int eventType, const EmscriptenTouchEvent
     return EM_TRUE;
 }
 
-EM_BOOL touchcancel_handler_button_a(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
+bool touchcancel_handler_button_a(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData)
 {
     CFXGameRef this = userData;
     this->keys[GLFW_KEY_SPACE] = false;

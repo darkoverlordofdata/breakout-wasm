@@ -104,26 +104,26 @@ static inline CFXGameRef NewCFXGame(char* cstr, int width, int height, void* sub
     return Ctor((CFXGameRef)CFCreate(CFXGame), cstr, width, height, subclass, vptr);
 }
 
-EM_BOOL onclick_handler_dpad_up(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
-EM_BOOL onclick_handler_dpad_down(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
-EM_BOOL onclick_handler_dpad_left(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
-EM_BOOL onclick_handler_dpad_right(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
-EM_BOOL onclick_handler_button_a(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
+bool onclick_handler_dpad_up(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
+bool onclick_handler_dpad_down(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
+bool onclick_handler_dpad_left(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
+bool onclick_handler_dpad_right(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
+bool onclick_handler_button_a(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
 
-EM_BOOL touchstart_handler_dpad_up(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
-EM_BOOL touchstart_handler_dpad_down(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
-EM_BOOL touchstart_handler_dpad_left(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
-EM_BOOL touchstart_handler_dpad_right(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
-EM_BOOL touchstart_handler_button_a(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
+bool touchstart_handler_dpad_up(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
+bool touchstart_handler_dpad_down(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
+bool touchstart_handler_dpad_left(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
+bool touchstart_handler_dpad_right(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
+bool touchstart_handler_button_a(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
 
-EM_BOOL touchend_handler_dpad_up(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
-EM_BOOL touchend_handler_dpad_down(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
-EM_BOOL touchend_handler_dpad_left(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
-EM_BOOL touchend_handler_dpad_right(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
-EM_BOOL touchend_handler_button_a(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
+bool touchend_handler_dpad_up(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
+bool touchend_handler_dpad_down(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
+bool touchend_handler_dpad_left(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
+bool touchend_handler_dpad_right(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
+bool touchend_handler_button_a(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
 
-EM_BOOL touchcancel_handler_dpad_up(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
-EM_BOOL touchcancel_handler_dpad_down(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
-EM_BOOL touchcancel_handler_dpad_left(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
-EM_BOOL touchcancel_handler_dpad_right(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
-EM_BOOL touchcancel_handler_button_a(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
+bool touchcancel_handler_dpad_up(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
+bool touchcancel_handler_dpad_down(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
+bool touchcancel_handler_dpad_left(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
+bool touchcancel_handler_dpad_right(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
+bool touchcancel_handler_button_a(int eventType, const EmscriptenTouchEvent *touchEvent, void *userData);
