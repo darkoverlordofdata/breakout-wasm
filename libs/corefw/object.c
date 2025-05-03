@@ -43,19 +43,19 @@ void* CFNew(CFClassRef class, ...)
 {
 	CFObjectRef obj;
 
-	if ((obj = malloc(class->size)) == NULL)
-		return NULL;
+	if ((obj = malloc(class->size)) == nullptr)
+		return nullptr;
 
 	obj->cls = class;
 	obj->ref_cnt = 1;
 
-	if (class->ctor != NULL) {
+	if (class->ctor != nullptr) {
 		va_list args;
 		va_start(args, class);
 
 		if (!class->ctor(obj, args)) {
 			CFUnref(obj);
-			return NULL;
+			return nullptr;
 		}
 
 		va_end(args);
@@ -70,19 +70,19 @@ void* CFCreate(CFClassRef class, ...)
 
 	assert(class != CFRefPool);
 
-	if ((obj = malloc(class->size)) == NULL)
-		return NULL;
+	if ((obj = malloc(class->size)) == nullptr)
+		return nullptr;
 
 	obj->cls = class;
 	obj->ref_cnt = 1;
 
-	if (class->ctor != NULL) {
+	if (class->ctor != nullptr) {
 		va_list args;
 		va_start(args, class);
 
 		if (!class->ctor(obj, args)) {
 			CFUnref(obj);
-			return NULL;
+			return nullptr;
 		}
 
 		va_end(args);
@@ -90,7 +90,7 @@ void* CFCreate(CFClassRef class, ...)
 
 	if (!CFRefPoolAdd(obj)) {
 		CFUnref(obj);
-		return NULL;
+		return nullptr;
 	}
 
 	return obj;
@@ -100,8 +100,8 @@ void* CFRef(void *ptr)
 {
 	CFObjectRef obj = ptr;
 
-	if (obj == NULL)
-		return NULL;
+	if (obj == nullptr)
+		return nullptr;
 
 	obj->ref_cnt++;
 
@@ -112,7 +112,7 @@ void CFUnref(void *ptr)
 {
 	CFObjectRef obj = ptr;
 
-	if (obj == NULL)
+	if (obj == nullptr)
 		return;
 
 	if (--obj->ref_cnt == 0)
@@ -123,10 +123,10 @@ void CFFree(void *ptr)
 {
 	CFObjectRef obj = ptr;
 
-	if (obj == NULL)
+	if (obj == nullptr)
 		return;
 
-	if (obj->cls->dtor != NULL)
+	if (obj->cls->dtor != nullptr)
 		obj->cls->dtor(obj);
 
 	free(obj);
@@ -136,8 +136,8 @@ CFClassRef CFClass(void *ptr)
 {
 	CFObjectRef obj = ptr;
 
-	if (obj == NULL)
-		return NULL;
+	if (obj == nullptr)
+		return nullptr;
 
 	return obj->cls;
 }
@@ -146,7 +146,7 @@ bool CFIs(void *ptr, CFClassRef cls)
 {
 	CFObjectRef obj = ptr;
 
-	if (obj == NULL || cls == NULL)
+	if (obj == nullptr || cls == nullptr)
 		return false;
 
 	return (obj->cls == cls);
@@ -159,10 +159,10 @@ bool CFEqual(void *ptr1, void *ptr2)
 	if (obj1 == obj2)
 		return true;
 
-	if (obj1 == NULL || obj2 == NULL)
+	if (obj1 == nullptr || obj2 == nullptr)
 		return false;
 
-	if (obj1->cls->equal != NULL) {
+	if (obj1->cls->equal != nullptr) {
 		return obj1->cls->equal(obj1, obj2);
 	} else
 		return (obj1 == obj2);
@@ -172,10 +172,10 @@ uint32_t CFHash(void *ptr)
 {
 	CFObjectRef obj = ptr;
 
-	if (obj == NULL)
+	if (obj == nullptr)
 		return 0;
 
-	if (obj->cls->hash != NULL)
+	if (obj->cls->hash != nullptr)
 		return obj->cls->hash(obj);
 
 	return (uint32_t)(uintptr_t)ptr;
@@ -185,12 +185,12 @@ void* CFCopy(void *ptr)
 {
 	CFObjectRef obj = ptr;
 
-	if (obj == NULL)
-		return NULL;
+	if (obj == nullptr)
+		return nullptr;
 
-	if (obj->cls->copy != NULL)
+	if (obj->cls->copy != nullptr)
 		return obj->cls->copy(obj);
 
-	return NULL;
+	return nullptr;
 }
 

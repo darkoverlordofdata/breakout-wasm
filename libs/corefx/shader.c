@@ -39,14 +39,14 @@ void CheckCompileErrors(
     if (strncmp(type, "PROGRAM", 7) != 0) {
         glGetShaderiv(object, GL_COMPILE_STATUS, &success);
         if (!success) {
-            glGetShaderInfoLog(object, 1024, NULL, infoLog);
+            glGetShaderInfoLog(object, 1024, nullptr, infoLog);
             printf("| ERROR::SHADER: Compile-time error: type: %s\n%s\n", type, infoLog);
             printf(" -- --------------------------------------------------- --\n");
         }
     } else {
         glGetProgramiv(object, GL_LINK_STATUS, &success);
         if (!success) {
-            glGetProgramInfoLog(object, 1024, NULL, infoLog);
+            glGetProgramInfoLog(object, 1024, nullptr, infoLog);
             printf("| ERROR::SHADER: Link-time error: type: %s\n%s\n", type, infoLog);
             printf(" -- --------------------------------------------------- --\n");
         }
@@ -69,12 +69,12 @@ method void Compile(
     GLuint sVertex, sFragment;
     // Vertex CFXShader
     sVertex = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(sVertex, 1, &vShaderSrc, NULL);
+    glShaderSource(sVertex, 1, &vShaderSrc, nullptr);
     glCompileShader(sVertex);
     CheckCompileErrors(this, sVertex, "VERTEX");
     // Fragment CFXShader
     sFragment = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(sFragment, 1, &fShaderSrc, NULL);
+    glShaderSource(sFragment, 1, &fShaderSrc, nullptr);
     glCompileShader(sFragment);
     CheckCompileErrors(this, sFragment, "FRAGMENT");
 

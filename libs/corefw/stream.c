@@ -37,8 +37,8 @@ ctor(void *ptr, va_list args)
 {
 	CFStreamRef stream = ptr;
 
-	stream->ops = NULL;
-	stream->cache = NULL;
+	stream->ops = nullptr;
+	stream->cache = nullptr;
 	stream->cache_len = 0;
 
 	return true;
@@ -56,10 +56,10 @@ CFStreamRead(void *ptr, void *buf, size_t len)
 	CFStreamRef stream = ptr;
 	ssize_t ret;
 
-	if (stream == NULL || stream->ops == NULL)
+	if (stream == nullptr || stream->ops == nullptr)
 		return -1;
 
-	if (stream->cache == NULL) {
+	if (stream->cache == nullptr) {
 		if ((ret = stream->ops->read(stream, buf, len)) < -1)
 			ret = -1;
 
@@ -72,14 +72,14 @@ CFStreamRead(void *ptr, void *buf, size_t len)
 		memcpy(buf, stream->cache, stream->cache_len);
 
 		free(stream->cache);
-		stream->cache = NULL;
+		stream->cache = nullptr;
 		stream->cache_len = 0;
 
 		return ret;
 	} else {
 		char *tmp;
 
-		if ((tmp = malloc(stream->cache_len - len)) == NULL)
+		if ((tmp = malloc(stream->cache_len - len)) == nullptr)
 			return -1;
 		memcpy(tmp, stream->cache + len, stream->cache_len - len);
 		memcpy(buf, stream->cache, len);
@@ -102,7 +102,7 @@ CFStreamReadLine(void *ptr)
 	size_t i, ret_len;
 
 	/* Look if there is a line or \0 in our cache */
-	if (stream->cache != NULL) {
+	if (stream->cache != nullptr) {
 		for (i = 0; i < stream->cache_len; i++) {
 			if (stream->cache[i] == '\n' ||
 			    stream->cache[i] == '\0') {
@@ -111,20 +111,20 @@ CFStreamReadLine(void *ptr)
 					ret_len--;
 
 				ret_str = CFStrnDup(stream->cache, ret_len);
-				if (ret_str == NULL)
-					return NULL;
+				if (ret_str == nullptr)
+					return nullptr;
 
-				ret = CFCreate(CFString, (void*)NULL);
-				if (ret == NULL) {
+				ret = CFCreate(CFString, (void*)nullptr);
+				if (ret == nullptr) {
 					free(ret_str);
-					return NULL;
+					return nullptr;
 				}
 				CFStringSetNoCopy(ret, ret_str, ret_len);
 
 				if (stream->cache_len > i + 1) {
 					if ((new_cache = malloc(
-					    stream->cache_len - i - 1)) == NULL)
-						return NULL;
+					    stream->cache_len - i - 1)) == nullptr)
+						return nullptr;
 					memcpy(new_cache, stream->cache + i + 1,
 					    stream->cache_len - i - 1);
 				} else
@@ -141,15 +141,15 @@ CFStreamReadLine(void *ptr)
 
 	/* Read and see if we get a newline or \0 */
 
-	if ((buf = malloc(BUFFER_SIZE)) == NULL)
-		return NULL;
+	if ((buf = malloc(BUFFER_SIZE)) == nullptr)
+		return nullptr;
 
 	for (;;) {
 		if (stream->ops->at_end(stream)) {
 			free(buf);
 
-			if (stream->cache == NULL)
-				return NULL;
+			if (stream->cache == nullptr)
+				return nullptr;
 
 			ret_len = stream->cache_len;
 
@@ -157,18 +157,18 @@ CFStreamReadLine(void *ptr)
 				ret_len--;
 
 			ret_str = CFStrnDup(stream->cache, ret_len);
-			if (ret_str == NULL)
-				return NULL;
+			if (ret_str == nullptr)
+				return nullptr;
 
-			ret = CFCreate(CFString, (void*)NULL);
-			if (ret == NULL) {
+			ret = CFCreate(CFString, (void*)nullptr);
+			if (ret == nullptr) {
 				free(ret_str);
-				return NULL;
+				return nullptr;
 			}
 			CFStringSetNoCopy(ret, ret_str, ret_len);
 
 			free(stream->cache);
-			stream->cache = NULL;
+			stream->cache = nullptr;
 			stream->cache_len = 0;
 
 			return ret;
@@ -177,7 +177,7 @@ CFStreamReadLine(void *ptr)
 		buf_len = stream->ops->read(stream, buf, BUFFER_SIZE);
 		if (buf_len == -1) {
 			free(buf);
-			return NULL;
+			return nullptr;
 		}
 
 		/* Look if there's a newline or \0 */
@@ -185,13 +185,13 @@ CFStreamReadLine(void *ptr)
 			if (buf[i] == '\n' || buf[i] == '\0') {
 				ret_len = stream->cache_len + i;
 
-				if ((ret_str = malloc(ret_len + 1)) == NULL) {
+				if ((ret_str = malloc(ret_len + 1)) == nullptr) {
 					/*
 					 * FIXME: We lost the current buffer.
 					 *	  Mark the stream as broken?
 					 */
 					free(buf);
-					return NULL;
+					return nullptr;
 				}
 				memcpy(ret_str, stream->cache,
 				    stream->cache_len);
@@ -200,19 +200,19 @@ CFStreamReadLine(void *ptr)
 					ret_len--;
 				ret_str[ret_len] = '\0';
 
-				ret = CFCreate(CFString, (void*)NULL);
-				if (ret == NULL) {
+				ret = CFCreate(CFString, (void*)nullptr);
+				if (ret == nullptr) {
 					free(buf);
 					free(ret_str);
-					return NULL;
+					return nullptr;
 				}
 				CFStringSetNoCopy(ret, ret_str, ret_len);
 
 				if (buf_len > i + 1) {
 					new_cache = malloc(buf_len - i - 1);
-					if (new_cache == NULL) {
+					if (new_cache == nullptr) {
 						free(buf);
-						return NULL;
+						return nullptr;
 					}
 					memcpy(new_cache, buf + i + 1,
 					    buf_len - i - 1);
@@ -232,9 +232,9 @@ CFStreamReadLine(void *ptr)
 		if (stream->cache_len + buf_len > 0) {
 			new_cache = realloc(stream->cache,
 			    stream->cache_len + buf_len);
-			if (new_cache == NULL) {
+			if (new_cache == nullptr) {
 				free(buf);
-				return NULL;
+				return nullptr;
 			}
 			memcpy(new_cache + stream->cache_len, buf, buf_len);
 		} else {
@@ -252,7 +252,7 @@ CFStreamWrite(void *ptr, const void *buf, size_t len)
 {
 	CFStreamRef stream = ptr;
 
-	if (stream == NULL || stream->ops == NULL)
+	if (stream == nullptr || stream->ops == nullptr)
 		return false;
 
 	return stream->ops->write(stream, buf, len);
@@ -272,7 +272,7 @@ CFStreamWriteLine(void *ptr, const char *str)
 
 	len = strlen(str);
 
-	if ((tmp = malloc(len + 2)) == NULL)
+	if ((tmp = malloc(len + 2)) == nullptr)
 		return false;
 
 	memcpy(tmp, str, len);
@@ -293,10 +293,10 @@ CFStreamAtEnd(void *ptr)
 {
 	CFStreamRef stream = ptr;
 
-	if (stream == NULL || stream->ops == NULL)
+	if (stream == nullptr || stream->ops == nullptr)
 		return true;
 
-	if (stream->cache != NULL)
+	if (stream->cache != nullptr)
 		return false;
 
 	return stream->ops->at_end(stream);
@@ -307,7 +307,7 @@ CFStreamClose(void *ptr)
 {
 	CFStreamRef stream = ptr;
 
-	if (stream == NULL || stream->ops == NULL)
+	if (stream == nullptr || stream->ops == nullptr)
 		return;
 
 	stream->ops->close(stream);

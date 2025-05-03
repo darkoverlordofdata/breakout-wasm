@@ -54,7 +54,7 @@ void CFXGame_framebuffer_size_callback(GLFWwindow* window, int width, int height
 static uint64_t GetTicks()
 {
     struct timeval t;
-    gettimeofday(&t, NULL);
+    gettimeofday(&t, nullptr);
 
     uint64_t ts = t.tv_sec;
     uint64_t us = t.tv_usec;
@@ -65,7 +65,7 @@ method void* Ctor(CFXGameRef this, char* cstr, int width, int height, void* subc
 {
     this->subclass = subclass;
     this->virtual = vptr;
-    srand(time(NULL));
+    srand(time(nullptr));
     this->title = CFStrDup(cstr);
     this->len = strlen(cstr);
     this->keys = calloc(1024, 1);
@@ -90,8 +90,8 @@ method void* Ctor(CFXGameRef this, char* cstr, int width, int height, void* subc
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
     // glfw window creation
     // --------------------
-    this->window = glfwCreateWindow(this->width, this->height, "LearnOpenGL", NULL, NULL);
-    if (this->window == NULL) {
+    this->window = glfwCreateWindow(this->width, this->height, "LearnOpenGL", nullptr, nullptr);
+    if (this->window == nullptr) {
         printf("Failed to create GLFW window");
         glfwTerminate();
         exit(-1);

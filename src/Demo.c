@@ -133,11 +133,11 @@ method void Update(DemoRef this)
 
 method void Draw(DemoRef this)
 {
-    float bgd_r = 0.392156f;
-    float bgd_g = 0.584313f;
-    float bgd_b = 0.929411f;
+    float r = 0.392156f;
+    float g = 0.584313f;
+    float b = 0.929411f;
 
-    glClearColor(bgd_r, bgd_g, bgd_b, 1.0f);
+    glClearColor(r, g, b, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     if (this->State == GAME_ACTIVE) {

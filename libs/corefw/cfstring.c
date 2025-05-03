@@ -96,8 +96,8 @@ char* CFStrDup(const char *s)
 
 	len = strlen(s);
 
-	if ((copy = malloc(len + 1)) == NULL)
-		return NULL;
+	if ((copy = malloc(len + 1)) == nullptr)
+		return nullptr;
 
 	memcpy(copy, s, len + 1);
 
@@ -111,8 +111,8 @@ char* CFStrnDup(const char *s, size_t max)
 
 	len = CFStrnLen(s, max);
 
-	if ((copy = malloc(len + 1)) == NULL)
-		return NULL;
+	if ((copy = malloc(len + 1)) == nullptr)
+		return nullptr;
 
 	memcpy(copy, s, len);
 	copy[len] = 0;
@@ -125,14 +125,14 @@ static bool ctor(void *ptr, va_list args)
 	CFStringRef str = ptr;
 	const char *cstr = va_arg(args, const char*);
 
-	if (cstr != NULL) {
-		str->data = NULL;
-		if ((str->data = CFStrDup(cstr)) == NULL)
+	if (cstr != nullptr) {
+		str->data = nullptr;
+		if ((str->data = CFStrDup(cstr)) == nullptr)
 			return false;
 
 		str->len = strlen(cstr);
 	} else {
-		str->data = NULL;
+		str->data = nullptr;
 		str->len = 0;
 	}
 
@@ -143,7 +143,7 @@ static void dtor(void *ptr)
 {
 	CFStringRef str = ptr;
 
-	if (str->data != NULL)
+	if (str->data != nullptr)
 		free(str->data);
 }
 
@@ -185,12 +185,12 @@ static void* copy(void *ptr)
 	CFStringRef str = ptr;
 	CFStringRef new;
 
-	if ((new = CFNew(CFString, (void*)NULL)) == NULL)
-		return NULL;
+	if ((new = CFNew(CFString, (void*)nullptr)) == nullptr)
+		return nullptr;
 
-	if ((new->data = malloc(str->len + 1)) == NULL) {
+	if ((new->data = malloc(str->len + 1)) == nullptr) {
 		CFUnref(new);
-		return NULL;
+		return nullptr;
 	}
 	new->len = str->len;
 
@@ -214,17 +214,17 @@ bool CFStringSet(CFStringRef str, const char *cstr)
 	char *copy;
 	size_t len;
 
-	if (str != NULL) {
-		if ((copy = CFStrDup(cstr)) == NULL)
+	if (str != nullptr) {
+		if ((copy = CFStrDup(cstr)) == nullptr)
 			return false;
 
 		len = strlen(copy);
 	} else {
-		copy = NULL;
+		copy = nullptr;
 		len = 0;
 	}
 
-	if (str->data != NULL)
+	if (str->data != nullptr)
 		free(str->data);
 
 	str->data = copy;
@@ -235,7 +235,7 @@ bool CFStringSet(CFStringRef str, const char *cstr)
 
 void CFStringSetNoCopy(CFStringRef str, char *cstr, size_t len)
 {
-	if (str->data != NULL)
+	if (str->data != nullptr)
 		free(str->data);
 
 	str->data = cstr;
@@ -246,10 +246,10 @@ bool CFStringAppend(CFStringRef str, CFStringRef append)
 {
 	char *new;
 
-	if (append == NULL)
+	if (append == nullptr)
 		return true;
 
-	if ((new = realloc(str->data, str->len + append->len + 1)) == NULL)
+	if ((new = realloc(str->data, str->len + append->len + 1)) == nullptr)
 		return false;
 
 	memcpy(new + str->len, append->data, append->len);
@@ -266,12 +266,12 @@ bool CFStringAppendC(CFStringRef str, const char *append)
 	char *new;
 	size_t append_len;
 
-	if (append == NULL)
+	if (append == nullptr)
 		return true;
 
 	append_len = strlen(append);
 
-	if ((new = realloc(str->data, str->len + append_len + 1)) == NULL)
+	if ((new = realloc(str->data, str->len + append_len + 1)) == nullptr)
 		return false;
 
 	memcpy(new + str->len, append, append_len);

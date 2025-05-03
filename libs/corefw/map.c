@@ -35,7 +35,7 @@ static struct bucket
 	CFObjectRef 	key;
 	CFObjectRef 	obj;
 	uint32_t 		hash;
-} deleted = { NULL, NULL, 0 };
+} deleted = { nullptr, nullptr, 0 };
 
 /**
  * CFMap instance variables
@@ -69,7 +69,7 @@ method void* Get(CFMapRef this, char* key)
 
 method bool Remove(CFMapRef this, char* key)
 {
-        return CFMapSet(this, key, NULL);
+        return CFMapSet(this, key, nullptr);
 }
 
 method void Put(CFMapRef this, char* key, void* object)
@@ -83,7 +83,7 @@ method void ForEach(CFMapRef this, void(*func)(void* key, void* item))
      CFMapIter_t iter;
 
         CFMapIter(this, &iter);
-        while (iter.key != NULL) {
+        while (iter.key != nullptr) {
                 func(iter.key, iter.obj);
                 CFMapIterNext(&iter);
         }
@@ -94,11 +94,11 @@ static bool ctor(void *ptr, va_list args)
 	CFMapRef map = ptr;
 	void *key;
 
-	map->data = NULL;
+	map->data = nullptr;
 	map->size = 0;
 	map->items = 0;
 
-	while ((key = va_arg(args, void*)) != NULL)
+	while ((key = va_arg(args, void*)) != nullptr)
 		if (!CFMapSet(map, key, va_arg(args, void*)))
 			return false;
 
@@ -111,14 +111,14 @@ static void dtor(void *ptr)
 	uint32_t i;
 
 	for (i = 0; i < map->size; i++) {
-		if (map->data[i] != NULL && map->data[i] != &deleted) {
+		if (map->data[i] != nullptr && map->data[i] != &deleted) {
 			CFUnref(map->data[i]->key);
 			CFUnref(map->data[i]->obj);
 			free(map->data[i]);
 		}
 	}
 
-	if (map->data != NULL)
+	if (map->data != nullptr)
 		free(map->data);
 }
 
@@ -138,7 +138,7 @@ static bool equal(void *ptr1, void *ptr2)
 		return false;
 
 	for (i = 0; i < map1->size; i++)
-		if (map1->data[i] != NULL && map1->data[i] != &deleted &&
+		if (map1->data[i] != nullptr && map1->data[i] != &deleted &&
 		        !CFEqual(CFMapGet(map2, map1->data[i]->key),
 		        map1->data[i]->obj))
 			return false;
@@ -152,7 +152,7 @@ static uint32_t hash(void *ptr)
 	uint32_t i, hash = 0;
 
 	for (i = 0; i < map->size; i++) {
-		if (map->data[i] != NULL && map->data[i] != &deleted) {
+		if (map->data[i] != nullptr && map->data[i] != &deleted) {
 			hash += map->data[i]->hash;
 			hash += CFHash(map->data[i]->obj);
 		}
@@ -167,19 +167,19 @@ static void* copy(void *ptr)
 	CFMapRef new;
 	uint32_t i;
 
-	if ((new = CFNew(CFMap, (void*)NULL)) == NULL)
-		return NULL;
+	if ((new = CFNew(CFMap, (void*)nullptr)) == nullptr)
+		return nullptr;
 
-	if ((new->data = malloc(sizeof(*new->data) * map->size)) == NULL)
-		return NULL;
+	if ((new->data = malloc(sizeof(*new->data) * map->size)) == nullptr)
+		return nullptr;
 	new->size = map->size;
 
 	for (i = 0; i < map->size; i++) {
-		if (map->data[i] != NULL && map->data[i] != &deleted) {
+		if (map->data[i] != nullptr && map->data[i] != &deleted) {
 			struct bucket *bucket;
 
-			if ((bucket = malloc(sizeof(*bucket))) == NULL)
-				return NULL;
+			if ((bucket = malloc(sizeof(*bucket))) == nullptr)
+				return nullptr;
 
 			bucket->key = CFRef(map->data[i]->key);
 			bucket->obj = CFRef(map->data[i]->obj);
@@ -187,7 +187,7 @@ static void* copy(void *ptr)
 
 			new->data[i] = bucket;
 		} else
-			new->data[i] = NULL;
+			new->data[i] = nullptr;
 	}
 
 	return new;
@@ -212,26 +212,26 @@ bool resize(CFMapRef map, uint32_t items)
 	if (nsize == 0)
 		return false;
 
-	if ((ndata = malloc(nsize * sizeof(*ndata))) == NULL)
+	if ((ndata = malloc(nsize * sizeof(*ndata))) == nullptr)
 		return false;
 
 	for (i = 0; i < nsize; i++)
-		ndata[i] = NULL;
+		ndata[i] = nullptr;
 
 	for (i = 0; i < map->size; i++) {
-		if (map->data[i] != NULL && map->data[i] != &deleted) {
+		if (map->data[i] != nullptr && map->data[i] != &deleted) {
 			uint32_t j, last;
 
 			last = nsize;
 
 			j = map->data[i]->hash & (nsize - 1);
-			for (; j < last && ndata[j] != NULL; j++);
+			for (; j < last && ndata[j] != nullptr; j++);
 
 			/* In case the last bucket is already used */
 			if (j >= last) {
 				last = map->data[i]->hash & (nsize - 1);
 
-				for (j = 0; j < last && ndata[j] != NULL; j++);
+				for (j = 0; j < last && ndata[j] != nullptr; j++);
 			}
 
 			if (j >= last) {
@@ -259,14 +259,14 @@ void* CFMapGet(CFMapRef map, void *key)
 {
 	uint32_t i, hash, last;
 
-	if (key == NULL)
-		return NULL;
+	if (key == nullptr)
+		return nullptr;
 
 	hash = CFHash(key);
 	last = map->size;
 
 	for (i = hash & (map->size - 1);
-	        i < last && map->data[i] != NULL; i++) {
+	        i < last && map->data[i] != nullptr; i++) {
 		if (map->data[i] == &deleted)
 			continue;
 
@@ -275,12 +275,12 @@ void* CFMapGet(CFMapRef map, void *key)
 	}
 
 	if (i < last)
-		return NULL;
+		return nullptr;
 
 	/* In case the last bucket is already used */
 	last = hash & (map->size - 1);
 
-	for (i = 0; i < last && map->data[i] != NULL; i++) {
+	for (i = 0; i < last && map->data[i] != nullptr; i++) {
 		if (map->data[i] == &deleted)
 			continue;
 
@@ -288,7 +288,7 @@ void* CFMapGet(CFMapRef map, void *key)
 			return map->data[i]->obj;
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 void* CFMapGetC(CFMapRef map, const char *key)
@@ -296,8 +296,8 @@ void* CFMapGetC(CFMapRef map, const char *key)
 	CFStringRef str;
 	void *ret;
 
-	if ((str = CFNew(CFString, key)) == NULL)
-		return NULL;
+	if ((str = CFNew(CFString, key)) == nullptr)
+		return nullptr;
 
 	ret = CFMapGet(map, str);
 
@@ -310,14 +310,14 @@ bool CFMapSet(CFMapRef map, void *key, void *obj)
 {
 	uint32_t i, hash, last;
 
-	if (key == NULL)
+	if (key == nullptr)
 		return false;
 
-	if (map->data == NULL) {
-		if ((map->data = malloc(sizeof(*map->data))) == NULL)
+	if (map->data == nullptr) {
+		if ((map->data = malloc(sizeof(*map->data))) == nullptr)
 			return false;
 
-		map->data[0] = NULL;
+		map->data[0] = nullptr;
 		map->size = 1;
 		map->items = 0;
 	}
@@ -326,7 +326,7 @@ bool CFMapSet(CFMapRef map, void *key, void *obj)
 	last = map->size;
 
 	for (i = hash & (map->size - 1);
-	        i < last && map->data[i] != NULL; i++) {
+	        i < last && map->data[i] != nullptr; i++) {
 		if (map->data[i] == &deleted)
 			continue;
 
@@ -338,7 +338,7 @@ bool CFMapSet(CFMapRef map, void *key, void *obj)
 	if (i >= last) {
 		last = hash & (map->size - 1);
 
-		for (i = 0; i < last && map->data[i] != NULL; i++) {
+		for (i = 0; i < last && map->data[i] != nullptr; i++) {
 			if (map->data[i] == &deleted)
 				continue;
 
@@ -348,11 +348,11 @@ bool CFMapSet(CFMapRef map, void *key, void *obj)
 	}
 
 	/* Key not in dictionary */
-	if (i >= last || map->data[i] == NULL || map->data[i] == &deleted ||
+	if (i >= last || map->data[i] == nullptr || map->data[i] == &deleted ||
 	        !CFEqual(map->data[i]->key, key)) {
 		struct bucket *bucket;
 
-		if (obj == NULL)
+		if (obj == nullptr)
 			return true;
 
 		if (!resize(map, map->items + 1))
@@ -361,23 +361,23 @@ bool CFMapSet(CFMapRef map, void *key, void *obj)
 		last = map->size;
 
 		for (i = hash & (map->size - 1); i < last &&
-		        map->data[i] != NULL && map->data[i] != &deleted; i++);
+		        map->data[i] != nullptr && map->data[i] != &deleted; i++);
 
 		/* In case the last bucket is already used */
 		if (i >= last) {
 			last = hash & (map->size - 1);
 
-			for (i = 0; i < last && map->data[i] != NULL &&
+			for (i = 0; i < last && map->data[i] != nullptr &&
 			        map->data[i] != &deleted; i++);
 		}
 
 		if (i >= last)
 			return false;
 
-		if ((bucket = malloc(sizeof(*bucket))) == NULL)
+		if ((bucket = malloc(sizeof(*bucket))) == nullptr)
 			return false;
 
-		if ((bucket->key = CFCopy(key)) == NULL) {
+		if ((bucket->key = CFCopy(key)) == nullptr) {
 			free(bucket);
 			return false;
 		}
@@ -391,7 +391,7 @@ bool CFMapSet(CFMapRef map, void *key, void *obj)
 		return true;
 	}
 
-	if (obj != NULL) {
+	if (obj != nullptr) {
 		void *old = map->data[i]->obj;
 		map->data[i]->obj = CFRef(obj);
 		CFUnref(old);
@@ -416,7 +416,7 @@ bool CFMapSetC(CFMapRef map, const char *key, void *obj)
 	CFStringRef str;
 	bool ret;
 
-	if ((str = CFNew(CFString, key)) == NULL)
+	if ((str = CFNew(CFString, key)) == nullptr)
 		return false;
 
 	ret = CFMapSet(map, str, obj);
@@ -439,7 +439,7 @@ void CFMapIterNext(CFMapIter_t *iter)
 	CFMapRef map = iter->_map;
 
 	for (; iter->_pos < map->size &&
-	        (map->data[iter->_pos] == NULL ||
+	        (map->data[iter->_pos] == nullptr ||
 	        map->data[iter->_pos] == &deleted); iter->_pos++);
 
 	if (iter->_pos < map->size) {
@@ -447,8 +447,8 @@ void CFMapIterNext(CFMapIter_t *iter)
 		iter->obj = map->data[iter->_pos]->obj;
 		iter->_pos++;
 	} else {
-		iter->key = NULL;
-		iter->obj = NULL;
+		iter->key = nullptr;
+		iter->obj = nullptr;
 	}
 }
 

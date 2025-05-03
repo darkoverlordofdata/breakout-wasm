@@ -59,7 +59,7 @@ ctor(void *ptr, va_list args)
     CFBagRef this = ptr;
     void *obj;
 
-    this->data = NULL;
+    this->data = nullptr;
     this->size = 0;
     this->length = va_arg(args, size_t);
     if (this->length == 0) this->length = 64;
@@ -76,7 +76,7 @@ dtor(void *ptr)
     for (i = 0; i < this->size; i++)
         CFUnref(this->data[i]);
 
-    if (this->data != NULL)
+    if (this->data != nullptr)
         free(this->data);
 }
 
@@ -122,12 +122,12 @@ copy(void *ptr)
     CFBagRef this = ptr;
     CFBagRef new;
 
-    if ((new = CFNew(CFBag, (void*)NULL)) == NULL)
-        return NULL;
+    if ((new = CFNew(CFBag, (void*)nullptr)) == nullptr)
+        return nullptr;
 
-    if ((new->data = malloc(sizeof(void*) * this->size)) == NULL) {
+    if ((new->data = malloc(sizeof(void*) * this->size)) == nullptr) {
         CFUnref(new);
-        return NULL;
+        return nullptr;
     }
     new->size = this->size;
 
@@ -150,7 +150,7 @@ void* CFBagRemoveAt(CFBagRef this, size_t index)
 {
     CFObjectRef e = this->data[index];              // make copy of element to remove so it can be returned
     this->data[index] = this->data[--this->size];   // overwrite item to remove with last element
-    this->data[this->size] = NULL;                  // null last element, so gc can do its work
+    this->data[this->size] = nullptr;                  // null last element, so gc can do its work
     return e;
 }
 
@@ -168,7 +168,7 @@ bool CFBagRemove(CFBagRef this, void* e)
     for (size_t i = 0; i<this->size; i++) {
         if (CFEqual(e, this->data[i])) {
             this->data[i] = this->data[--this->size];
-            this->data[this->size] = NULL;
+            this->data[this->size] = nullptr;
             return true;
         }
     }
@@ -184,10 +184,10 @@ void* CFBagRemoveLast(CFBagRef this)
 {
     if (this->size>0) {
         CFObjectRef e = this->data[--this->size];
-        this->data[this->size] = NULL;
+        this->data[this->size] = nullptr;
         return e;
     }
-    return NULL;
+    return nullptr;
 }
 
 /**
@@ -241,7 +241,7 @@ bool CFBagRemoveAll(CFBagRef this, CFBagRef bag)
 void* CFBagGet(CFBagRef this, size_t index)
 {
     if (index >= this->length) {
-        return NULL;
+        return nullptr;
     }
     return this->data[index];
 }
@@ -261,7 +261,7 @@ void* CFBagSafeGet(CFBagRef this, size_t index)
 {
     if (index >= this->length) {
         CFBagGrow(this, (index * 7) / 4 + 1);
-        return NULL;
+        return nullptr;
     }
     return this->data[index];
 
@@ -360,7 +360,7 @@ void CFBagEnsureCapacity(CFBagRef this, size_t index)
 void CFBagClear(CFBagRef this)
 {
     for (size_t i = 0; i<this->size; i++) {
-        this->data[i] = NULL;
+        this->data[i] = nullptr;
     }
     this->size = 0;
 }

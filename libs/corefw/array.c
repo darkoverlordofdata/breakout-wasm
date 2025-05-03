@@ -62,7 +62,7 @@ method void Clear(CFArrayRef this)
 	for (size_t i = 0; i < this->size; i++)
 		CFUnref(this->data[i]);
 
-	if (this->data != NULL)
+	if (this->data != nullptr)
 		free(this->data);
         this->size = 0;
 }
@@ -92,10 +92,10 @@ static bool ctor(void *ptr, va_list args)
 	CFArrayRef array = ptr;
 	void *obj;
 
-	array->data = NULL;
+	array->data = nullptr;
 	array->size = 0;
 
-	while ((obj = va_arg(args, void*)) != NULL)
+	while ((obj = va_arg(args, void*)) != nullptr)
 		if (!CFArrayPush(array, obj))
 			return false;
 
@@ -110,7 +110,7 @@ static void dtor(void *ptr)
 	for (i = 0; i < array->size; i++)
 		CFUnref(array->data[i]);
 
-	if (array->data != NULL)
+	if (array->data != nullptr)
 		free(array->data);
 }
 
@@ -158,12 +158,12 @@ static void* copy(void *ptr)
 	CFArrayRef new;
 	size_t i;
 
-	if ((new = CFNew(CFArray, (void*)NULL)) == NULL)
-		return NULL;
+	if ((new = CFNew(CFArray, (void*)nullptr)) == nullptr)
+		return nullptr;
 
-	if ((new->data = malloc(sizeof(void*) * array->size)) == NULL) {
+	if ((new->data = malloc(sizeof(void*) * array->size)) == nullptr) {
 		CFUnref(new);
-		return NULL;
+		return nullptr;
 	}
 	new->size = array->size;
 
@@ -176,7 +176,7 @@ static void* copy(void *ptr)
 void* CFArrayGet(CFArrayRef array, size_t index)
 {
 	if (index >= array->size)
-		return NULL;
+		return nullptr;
 
 	return array->data[index];
 }
@@ -207,12 +207,12 @@ bool CFArrayPush(CFArrayRef array, void *ptr)
 	CFObjectRef obj = ptr;
 	void **new;
 
-	if (array->data == NULL)
+	if (array->data == nullptr)
 		new = malloc(sizeof(void*));
 	else
 		new = realloc(array->data, sizeof(void*) * (array->size + 1));
 
-	if (new == NULL)
+	if (new == nullptr)
 		return false;
 
 	new[array->size] = CFRef(obj);
@@ -226,7 +226,7 @@ bool CFArrayPush(CFArrayRef array, void *ptr)
 void* CFArrayLast(CFArrayRef array)
 {
 	if (array->size == 0)
-		return NULL;
+		return nullptr;
 
 	return array->data[array->size - 1];
 }
@@ -237,12 +237,12 @@ bool CFArrayPop(CFArrayRef array)
 	void *last;
 
 	if (array->size == 0)
-		return NULL;
+		return false;
 
 	if (array->size == 1) {
 		CFUnref(array->data[0]);
 		free(array->data);
-		array->data = NULL;
+		array->data = nullptr;
 		array->size = 0;
 		return true;
 	}
@@ -250,7 +250,7 @@ bool CFArrayPop(CFArrayRef array)
 	last = array->data[array->size - 1];
 
 	new = realloc(array->data, sizeof(void*) * (array->size - 1));
-	if (new == NULL)
+	if (new == nullptr)
 		return false;
 
 	CFUnref(last);

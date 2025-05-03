@@ -36,7 +36,7 @@ static void dtor(void* self)
     CFMapIter_t iter;
 
     CFMapIter(this->Shaders, &iter);
-    while (iter.key != NULL) {
+    while (iter.key != nullptr) {
         if (CFIs(iter.obj, (CFClassRef)CFXShader))
             CFUnref(iter.obj);
         CFMapIterNext(&iter);
@@ -44,7 +44,7 @@ static void dtor(void* self)
     CFUnref(this->Shaders);
 
     CFMapIter(this->Textures, &iter);
-    while (iter.key != NULL) {
+    while (iter.key != nullptr) {
         if (CFIs(iter.obj, (CFClassRef)CFXTexture2D))
             CFUnref(iter.obj);
         CFMapIterNext(&iter);
@@ -54,8 +54,8 @@ static void dtor(void* self)
 
 void Init(CFXResourceManagerRef this)
 {
-    this->Shaders = CFNew(CFMap, NULL);
-    this->Textures = CFNew(CFMap, NULL);
+    this->Shaders = CFNew(CFMap, nullptr);
+    this->Textures = CFNew(CFMap, nullptr);
 }
 method void* Ctor(CFXResourceManagerRef this)
 {
@@ -76,7 +76,7 @@ method CFXShaderRef LoadShader(
     const GLchar* fShaderFile,
     const char* name)
 {
-    assert(this != NULL);
+    assert(this != nullptr);
 
     CFMapSetC(this->Shaders, name, LoadShaderFromFile(this, vShaderFile, fShaderFile));
     return CFMapGetC(this->Shaders, name);

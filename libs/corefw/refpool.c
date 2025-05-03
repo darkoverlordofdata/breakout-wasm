@@ -66,15 +66,15 @@ static bool ctor(void *ptr, va_list args)
 	CFRefPoolRef pool = ptr;
 	(void)args;
 
-	pool->data = NULL;
+	pool->data = nullptr;
 	pool->size = 0;
 
-	if (top != NULL) {
+	if (top != nullptr) {
 		pool->prev = top;
 		top->next = pool;
 	} else
-		pool->prev = NULL;
-	pool->next = NULL;
+		pool->prev = nullptr;
+	pool->next = nullptr;
 
 	top = pool;
 
@@ -86,33 +86,33 @@ static void dtor(void *ptr)
 	CFRefPoolRef pool = ptr;
 	size_t i;
 
-	if (pool->next != NULL)
+	if (pool->next != nullptr)
 		CFUnref(pool->next);
 
 	for (i = 0; i < pool->size; i++)
 		CFUnref(pool->data[i]);
 
-	if (pool->data != NULL)
+	if (pool->data != nullptr)
 		free(pool->data);
 
 	top = pool->prev;
 
-	if (top != NULL)
-		top->next = NULL;
+	if (top != nullptr)
+		top->next = nullptr;
 }
 
 bool CFRefPoolAdd(void *ptr)
 {
 	void **ndata;
 
-	assert(top != NULL);
+	assert(top != nullptr);
 
-	if (top->data != NULL)
+	if (top->data != nullptr)
 		ndata = realloc(top->data, (top->size + 1) * sizeof(void*));
 	else
 		ndata = malloc((top->size + 1) * sizeof(void*));
 
-	if (ndata == NULL)
+	if (ndata == nullptr)
 		return false;
 
 	ndata[top->size++] = ptr;

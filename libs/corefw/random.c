@@ -55,7 +55,7 @@
 // static unsigned long mt[MT19937_N]; /* the array for the state vector    */
 // static int mti=MT19937_N+1; /* mti==MT19937_N+1 means mt[MT19937_N] is not initialized */
 
-static CFRandomRef CFRandomInstance = NULL;
+static CFRandomRef CFRandomInstance = nullptr;
 
 static inline void init_genrand(CFRandomRef this, unsigned long s);
 static inline void init_by_array(CFRandomRef this, unsigned long init_key[], unsigned long key_length);
@@ -75,8 +75,8 @@ unsigned long frameCounter = 999;
 
 method unsigned long NextLong(void)
 {
-        if (CFRandomInstance == NULL) {
-                // unsigned long seed = (unsigned long)time(NULL);
+        if (CFRandomInstance == nullptr) {
+                // unsigned long seed = (unsigned long)time(nullptr);
                 unsigned long seed = frameCounter;
                 CFRandomInstance = NewRandom(seed);
         }
@@ -86,8 +86,8 @@ method unsigned long NextLong(void)
 
 method double NextDouble(void)
 {
-        if (CFRandomInstance == NULL) {
-                // unsigned long seed = (unsigned long)time(NULL);
+        if (CFRandomInstance == nullptr) {
+                // unsigned long seed = (unsigned long)time(nullptr);
                 unsigned long seed = frameCounter;
                 CFRandomInstance = NewRandom(seed);
         }
@@ -97,7 +97,7 @@ method double NextDouble(void)
 method void* Ctor(CFRandomRef this)
 {
         // (CFRandomRef)this;
-        // return New(this, (unsigned long)time(NULL));
+        // return New(this, (unsigned long)time(nullptr));
         return NewRandom(frameCounter);
 }
 
