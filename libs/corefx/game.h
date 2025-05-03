@@ -9,22 +9,22 @@
 extern CFClassRef CFXGame;
 
 typedef struct __CFXGame* CFXGameRef;
-struct CFXGameVtbl;
+typedef struct __CFXGameVtbl* CFXGameVtblRef;
 
 extern CFXGameRef CFXGame_instance;
 
 typedef void (*CFXGameProc)(void* self);
-struct CFXGameVtbl {
-    void (*Initialize)(void* self);
-    void (*LoadContent)(void* self);
-    void (*Update)(void* self);
-    void (*Draw)(void* self);
-};
+typedef struct __CFXGameVtbl {
+    void (*Initialize)  (void* self);
+    void (*LoadContent) (void* self);
+    void (*Update)      (void* self);
+    void (*Draw)        (void* self);
+} __CFXGameVtbl;
 
 typedef struct __CFXGame {
     __CFObject obj;
     void* subclass;
-    struct CFXGameVtbl const* override;
+    CFXGameVtblRef virtual;
     GLFWwindow* window;
     char* title;
     int len;
@@ -67,7 +67,7 @@ extern method void* Ctor(
     int width, 
     int height, 
     void* subclass, 
-    struct CFXGameVtbl* vptr);
+    CFXGameVtblRef vptr);
 
 extern method void HandleEvents(
     CFXGameRef const this);
@@ -87,23 +87,54 @@ extern method void RunLoop(
 extern method void Run(
     CFXGameRef const this);
 
-extern method void Initialize(
-    CFXGameRef const this);
-
-extern method void LoadContent(
-    CFXGameRef const this);
-
-extern method void Update(
-    CFXGameRef const this);
-
-extern method void Draw(
-    CFXGameRef const this);
-
-static inline CFXGameRef NewCFXGame(char* cstr, int width, int height, void* subclass, struct CFXGameVtbl* vptr)
+static inline CFXGameRef NewCFXGame(char* cstr, int width, int height, void* subclass, CFXGameVtblRef vptr)
 {
     return Ctor((CFXGameRef)CFCreate(CFXGame), cstr, width, height, subclass, vptr);
 }
 
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+///// virtual methods
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+/**
+ * CFXGame::Draw
+ */
+static inline method void Draw(CFXGameRef const this)
+{
+    this->virtual->Draw(this->subclass);
+}
+
+/**
+ * CFXGame::LoadContent
+ */
+static inline method void LoadContent(CFXGameRef const this)
+{
+    this->virtual->LoadContent(this->subclass);
+}
+
+/**
+ * CFXGame::Initialize
+ */
+static inline method void Initialize(CFXGameRef const this)
+{
+    this->virtual->Initialize(this->subclass);
+}
+
+/**
+ * CFXGame::Update
+ */
+static inline method void Update(CFXGameRef const this)
+{
+    this->virtual->Update(this->subclass);
+}
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+///// gamepad events
+////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////// 
 bool onclick_handler_dpad_up(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
 bool onclick_handler_dpad_down(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
 bool onclick_handler_dpad_left(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);

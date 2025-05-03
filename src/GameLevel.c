@@ -32,7 +32,7 @@ method GameLevelRef Ctor(
     int levelWidth,
     int levelHeight)
 {
-    this->Bricks = CFCreate(CFArray, NULL);
+    this->Bricks = CFCreate(CFArray, nullptr);
     Load(this, file, levelWidth, levelHeight);
     return this;
 }
@@ -74,8 +74,8 @@ method GameLevelRef Load(
     // printf("===============================================\n");
 
 
-    CFArrayRef tileData = CFCreate(CFArray, NULL);
-    CFArrayRef row = CFCreate(CFArray, NULL);
+    CFArrayRef tileData = CFCreate(CFArray, nullptr);
+    CFArrayRef row = CFCreate(CFArray, nullptr);
     int i;
     char c;
     if (fstream) {
@@ -83,7 +83,7 @@ method GameLevelRef Load(
             Add(row, CFCreate(CFInt, i));
             if (c == '\n') {
                 Add(tileData, row);
-                row = CFCreate(CFArray, NULL);
+                row = CFCreate(CFArray, nullptr);
             }
         }
 

@@ -23,7 +23,7 @@ typedef enum {
 typedef struct __Demo {
     __CFObject obj;
     void* subclass;
-    struct CFXGameVtbl const* override;
+    struct CFXGameVtbl const* virtual;
     GLFWwindow* window;
     char* title;
     int len;

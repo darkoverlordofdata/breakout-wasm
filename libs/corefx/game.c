@@ -61,10 +61,10 @@ static uint64_t GetTicks()
     return ((ts * 1000000L) + us) * 10;
 }
 
-method void* Ctor(CFXGameRef this, char* cstr, int width, int height, void* subclass, struct CFXGameVtbl* vptr)
+method void* Ctor(CFXGameRef this, char* cstr, int width, int height, void* subclass, CFXGameVtblRef vptr)
 {
     this->subclass = subclass;
-    this->override = vptr;
+    this->virtual = vptr;
     srand(time(NULL));
     this->title = CFStrDup(cstr);
     this->len = strlen(cstr);
@@ -209,7 +209,7 @@ method void Tick(CFXGameRef const this)
             ++stepCount;
             this->delta = (double)this->elapsedGameTime * SecondsPerTick;
             Update(this);
-            // this->override->Update(self);
+            // this->virtual->Update(self);
         }
         //Every update after the first accumulates lag
         this->updateFrameLag += Max(0, stepCount - 1);
@@ -237,7 +237,7 @@ method void Tick(CFXGameRef const this)
 
         this->delta = (double)this->elapsedGameTime * SecondsPerTick;
         Update(this);
-        // this->override->Update(self);
+        // this->virtual->Update(self);
     }
     // Draw unless the update suppressed it.
     if (this->suppressDraw)
@@ -282,42 +282,9 @@ method void Run(CFXGameRef const this)
 
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
-///// override methods
+///// gamepad events
 ////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////
-
-/**
- * CFXGame::Draw
- */
-method void Draw(CFXGameRef const this)
-{
-    this->override->Draw(this->subclass);
-}
-
-/**
- * CFXGame::LoadContent
- */
-method void LoadContent(CFXGameRef const this)
-{
-    this->override->LoadContent(this->subclass);
-}
-
-/**
- * CFXGame::Initialize
- */
-method void Initialize(CFXGameRef const this)
-{
-    this->override->Initialize(this->subclass);
-}
-
-/**
- * CFXGame::Update
- */
-method void Update(CFXGameRef const this)
-{
-    this->override->Update(this->subclass);
-}
-
+//////////////////////////////////////////////////////////////////////// 
 
 bool onclick_handler_dpad_up(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
 {

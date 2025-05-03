@@ -32,16 +32,16 @@ static BallObjectRef Ball;
 ////////////////////////////////////////////////////////////////////////
 void* Ctor(DemoRef this, char* title, int width, int height)
 {
-    static struct CFXGameVtbl overrides = {
+    static __CFXGameVtbl vtable = {
         .Initialize =   (CFXGameProc)((DemoProc)Initialize),
         .LoadContent =  (CFXGameProc)((DemoProc)LoadContent),
         .Update =       (CFXGameProc)((DemoProc)Update),
         .Draw =         (CFXGameProc)((DemoProc)Draw),
     };
 
-    Ctor((CFXGameRef)this, title, width, height, this, &overrides);
+    Ctor((CFXGameRef)this, title, width, height, this, &vtable);
 
-    this->Levels = CFNew(CFArray, NULL);
+    this->Levels = CFNew(CFArray, nullptr);
     this->Level = 0;
     this->State = GAME_ACTIVE;
     this->width = width;
